@@ -27,6 +27,7 @@ import (
 	"fmt"
 	"io"
 	"io/fs"
+	"maps"
 	"os"
 	"path/filepath"
 	"slices"
@@ -331,6 +332,19 @@ var dyldExtractCmd = &cobra.Command{
 					for _, addr := range stubAddresses {
 						syms = append(syms, macho.Symbol{
 							Name:  stubIslands[addr],
+							Value: addr,
+							Desc:  0xa00,
+						})
+					}
+					// iOS/macOS 27 selector stubs: only the ones this image calls (there are millions cache-wide)
+					objcStubs, err := f.GetObjcMsgSendStubsCalledBy(image)
+					if err != nil {
+						return err
+					}
+					objcAddresses := slices.Sorted(maps.Keys(objcStubs))
+					for _, addr := range objcAddresses {
+						syms = append(syms, macho.Symbol{
+							Name:  objcStubs[addr].LinkerName(),
 							Value: addr,
 							Desc:  0xa00,
 						})

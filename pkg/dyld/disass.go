@@ -402,6 +402,14 @@ func (d DyldDisass) resolveStubSymbol(addr uint64) (string, bool) {
 	if d.f == nil {
 		return "", false
 	}
+	// iOS/macOS 27 selector stubs live after the libobjcMsgSendN images, outside any image (objc_msgsend_stubs.go)
+	// This resolver has no error result (the image stub lookup below drops its errors too),
+	// so a lookup error leaves the call unresolved; a2s, a2f and `dyld stubs` report it.
+	if s, ok, err := d.f.LookupObjcMsgSendStub(addr); err == nil && ok {
+		symName := s.SymbolName()
+		d.f.AddressToSymbol.Set(addr, symName)
+		return symName, true
+	}
 	if image, err := d.f.GetImageContainingTextAddr(addr); err == nil {
 		if _, targetName, err := image.ResolveStubAtAddr(addr); err == nil && targetName != "" {
 			symName := jumpSymbolName(targetName)

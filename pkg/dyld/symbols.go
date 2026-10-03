@@ -461,6 +461,13 @@ func (f *File) DumpStubIslands() error {
 			fmt.Printf("%#x: %#x\n", stub, target)
 		}
 	}
+	objcStubs, err := f.GetObjcMsgSendStubs()
+	if err != nil {
+		return fmt.Errorf("failed to parse objc_msgSend stubs: %v", err)
+	}
+	for stub, s := range objcStubs {
+		fmt.Printf("%#x: %s\n", stub, s.LinkerName())
+	}
 	return nil
 }
 
@@ -577,6 +584,14 @@ func (f *File) OpenOrCreateA2SCache(cacheFile string) error {
 					if symName, ok := f.AddressToSymbol.Get(target); ok {
 						f.AddressToSymbol.Set(stub, symName+"_stub")
 					}
+				}
+			}
+			log.Info("parsing objc_msgSend stubs...")
+			if objcStubs, err := f.GetObjcMsgSendStubs(); err != nil {
+				utils.Indent(log.Warn, 2)(fmt.Sprintf("failed to parse objc_msgSend stubs: %v", err))
+			} else {
+				for stub, s := range objcStubs {
+					f.AddressToSymbol.Set(stub, s.SymbolName())
 				}
 			}
 			log.Info("parsing objc info...")

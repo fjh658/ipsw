@@ -369,6 +369,14 @@ retry:
 		return setSymbol("?")
 	}
 
+	// iOS/macOS 27 selector stubs: code after a libobjcMsgSendN image, not a pointer
+	if stub, ok, err := f.LookupObjcMsgSendStub(addr); err != nil {
+		return nil, err
+	} else if ok {
+		sym.Image = stub.Image.Name
+		return setSymbol(stub.SymbolName())
+	}
+
 	ptr, err := f.ReadPointerAtAddress(addr)
 	if err != nil {
 		return nil, err
@@ -521,6 +529,14 @@ retry:
 
 	if secondAttempt {
 		return setSymbol("?")
+	}
+
+	// iOS/macOS 27 selector stubs: code after a libobjcMsgSendN image, not a pointer
+	if stub, ok, err := f.LookupObjcMsgSendStub(addr); err != nil {
+		return nil, err
+	} else if ok {
+		sym.Image = stub.Image.Name
+		return setSymbol(stub.SymbolName())
 	}
 
 	ptr, err := f.ReadPointerAtAddress(addr)

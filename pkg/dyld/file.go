@@ -110,9 +110,15 @@ type File struct {
 	rsBase          uint64
 	rsBaseErr       error
 	islandStubs     map[uint64]uint64
-	prewarmData     *PrewarmingHeader
-	size            int64
-	path            string // on-disk path of the main cache file (set by Open)
+	// selector stubs after the libobjcMsgSendN images (objc_msgsend_stubs.go)
+	objcStubRegionsOnce sync.Once
+	objcStubRegions     []objcMsgSendRegion
+	objcStubRegionsErr  error
+	selNamesMu          sync.Mutex
+	selNames            map[uint64]string
+	prewarmData         *PrewarmingHeader
+	size                int64
+	path                string // on-disk path of the main cache file (set by Open)
 
 	r       map[mtypes.UUID]io.ReaderAt
 	closers map[mtypes.UUID]io.Closer

@@ -1,0 +1,144 @@
+{
+ "source": "macOS 27.0.1 (26A434) dyld_shared_cache_arm64e; bytes from `ipsw dyld dump`, selectors from `ipsw dyld disass` (Version: 3.1.730)",
+ "image": "/usr/lib/objc/libobjcMsgSend.dylib",
+ "text_start": "0x188000000",
+ "text_end": "0x188000f30",
+ "objc_msgSend": "0x188000800",
+ "mapping_end": "0x1880d8000",
+ "chunks": [
+  {
+   "addr": "0x188000f30",
+   "hex": "e1b236d02100309132feff17200020d4018836f021000a912efeff17200020d421c9369021fc2b912afeff17200020d461b6369021002c9126feff17200020d4615836f0217c229122feff17200020d421523690215431911efeff17200020d4416436b021001e911afeff17200020d421c9369021382c9116feff17200020d4"
+  },
+  {
+   "addr": "0x18808b150",
+   "hex": "214e36d021a40a91aad5fd17200020d461cd36d021542091a6d5fd17200020d4c152369021002891a2d5fd17200020d461cd36d021b420919ed5fd17200020d4014536b0210000919ad5fd17200020d461cd36d02120219196d5fd17200020d461cd36d021ac219192d5fd17200020d461cd36d0212822918ed5fd17200020d4"
+  },
+  {
+   "addr": "0x1880d7b00",
+   "hex": "815f36f021982a913ea3fc17200020d441cf36d021042e913aa3fc17200020d4415d36b021e42a9136a3fc17200020d4c1bb36b0214c2b9132a3fc17200020d4a19136b0210c2d912ea3fc17200020d4a16a36b0215c2c912aa3fc17200020d441cf36d021f42e9126a3fc17200020d401c036902100349122a3fc17200020d400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+  }
+ ],
+ "stubs": [
+  {
+   "addr": "0x188000f30",
+   "selector_addr": "0x1f565ec00",
+   "selector": "length"
+  },
+  {
+   "addr": "0x188000f40",
+   "selector_addr": "0x1f5103280",
+   "selector": "UTF8String"
+  },
+  {
+   "addr": "0x188000f50",
+   "selector_addr": "0x1f5924aff",
+   "selector": "currentRunLoop"
+  },
+  {
+   "addr": "0x188000f60",
+   "selector_addr": "0x1f56ccb00",
+   "selector": "debugDescription"
+  },
+  {
+   "addr": "0x188000f70",
+   "selector_addr": "0x1f4b0f89f",
+   "selector": "drain"
+  },
+  {
+   "addr": "0x188000f80",
+   "selector_addr": "0x1f4a44c55",
+   "selector": "initWithUTF8String:"
+  },
+  {
+   "addr": "0x188000f90",
+   "selector_addr": "0x1f4c89780",
+   "selector": "run"
+  },
+  {
+   "addr": "0x188000fa0",
+   "selector_addr": "0x1f5924b0e",
+   "selector": "stringWithFormat:"
+  },
+  {
+   "addr": "0x18808b150",
+   "selector_addr": "0x1f4a512a9",
+   "selector": "initWithProperties:"
+  },
+  {
+   "addr": "0x18808b160",
+   "selector_addr": "0x1f5a39815",
+   "selector": "initWithProperty:class:"
+  },
+  {
+   "addr": "0x18808b170",
+   "selector_addr": "0x1f4ae3a00",
+   "selector": "initWithPropertyListRepresentation:"
+  },
+  {
+   "addr": "0x18808b180",
+   "selector_addr": "0x1f5a3982d",
+   "selector": "initWithPropertyListValue:"
+  },
+  {
+   "addr": "0x18808b190",
+   "selector_addr": "0x1f492c000",
+   "selector": "initWithQueue:"
+  },
+  {
+   "addr": "0x18808b1a0",
+   "selector_addr": "0x1f5a39848",
+   "selector": "initWithQueue:requireSecureCoding:"
+  },
+  {
+   "addr": "0x18808b1b0",
+   "selector_addr": "0x1f5a3986b",
+   "selector": "initWithQuickAction:requestor:"
+  },
+  {
+   "addr": "0x18808b1c0",
+   "selector_addr": "0x1f5a3988a",
+   "selector": "initWithQuickActionIdentifier:backgroundLoadingQueue:"
+  },
+  {
+   "addr": "0x1880d7b00",
+   "selector_addr": "0x1f4ccaaa6",
+   "selector": "updateData:"
+  },
+  {
+   "addr": "0x1880d7b10",
+   "selector_addr": "0x1f5ac1b81",
+   "selector": "usesEncodedMessages"
+  },
+  {
+   "addr": "0x1880d7b20",
+   "selector_addr": "0x1f4c80ab9",
+   "selector": "writeBigEndianFixed16:"
+  },
+  {
+   "addr": "0x1880d7b30",
+   "selector_addr": "0x1f5850ad3",
+   "selector": "writeBigEndianFixed32:"
+  },
+  {
+   "addr": "0x1880d7b40",
+   "selector_addr": "0x1f530cb43",
+   "selector": "writeBigEndianShortThenString:"
+  },
+  {
+   "addr": "0x1880d7b50",
+   "selector_addr": "0x1f4e2cb17",
+   "selector": "writeProtoBuffer:"
+  },
+  {
+   "addr": "0x1880d7b60",
+   "selector_addr": "0x1f5ac1bbd",
+   "selector": "writeRequest:into:"
+  },
+  {
+   "addr": "0x1880d7b70",
+   "selector_addr": "0x1f58d7d00",
+   "selector": "writeTo:"
+  }
+ ]
+}

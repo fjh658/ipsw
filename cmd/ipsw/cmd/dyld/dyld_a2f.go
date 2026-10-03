@@ -188,6 +188,14 @@ var AddrToFuncCmd = &cobra.Command{
 
 				image, err := f.GetImageContainingVMAddr(unslidAddr)
 				if err != nil {
+					fn, ok, serr := objcStubFunc(f, unslidAddr, unslidAddr)
+					if serr != nil {
+						return serr
+					}
+					if ok {
+						fs = append(fs, fn)
+						continue
+					}
 					return err
 				}
 
@@ -259,7 +267,22 @@ var AddrToFuncCmd = &cobra.Command{
 
 			image, err := f.GetImageContainingVMAddr(unslidAddr)
 			if err != nil {
-				return err
+				fn, ok, serr := objcStubFunc(f, addr, unslidAddr)
+				if serr != nil {
+					return serr
+				}
+				if !ok {
+					return err
+				}
+				if asJSON {
+					return json.NewEncoder(os.Stdout).Encode(fn)
+				}
+				if unslidAddr == fn.Start {
+					fmt.Printf("\n%#x: %s (start: %#x, end: %#x)\n", addr, fn.Name, fn.Start, fn.End)
+				} else {
+					fmt.Printf("\n%#x: %s + %d (start: %#x, end: %#x)\n", addr, fn.Name, unslidAddr-fn.Start, fn.Start, fn.End)
+				}
+				return nil
 			}
 
 			m, err := image.GetMacho()
@@ -301,4 +324,21 @@ var AddrToFuncCmd = &cobra.Command{
 
 		return nil
 	},
+}
+
+// objcStubFunc reports an iOS/macOS 27 selector stub (outside any image, after a
+// libobjcMsgSendN image) as the function containing unslid.
+func objcStubFunc(f *dyld.File, addr, unslid uint64) (dscFunc, bool, error) {
+	start, s, ok, err := f.ObjcMsgSendStubContaining(unslid)
+	if err != nil || !ok {
+		return dscFunc{}, false, err
+	}
+	return dscFunc{
+		Addr:  addr,
+		Start: start,
+		End:   start + dyld.ObjcMsgSendStubSize,
+		Size:  dyld.ObjcMsgSendStubSize,
+		Name:  s.LinkerName(),
+		Image: s.Image.Name,
+	}, true, nil
 }
